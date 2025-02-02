@@ -1,13 +1,16 @@
 import { Observable } from '@nativescript/core';
+import { UsageTracker } from './services/usage-tracker';
 
 export class HelloWorldModel extends Observable {
   private _youtubeUrl: string = '';
   private _isProcessing: boolean = false;
   private _processingMessage: string = '';
   private _freeHoursRemaining: string = '5 hours remaining in free plan';
+  private usageTracker: UsageTracker;
 
   constructor() {
     super();
+    this.usageTracker = UsageTracker.getInstance();
   }
 
   get youtubeUrl(): string {
@@ -54,7 +57,7 @@ export class HelloWorldModel extends Observable {
     }
   }
 
-  onGenerateClips() {
+  async onGenerateClips() {
     if (!this._youtubeUrl) {
       alert('Please enter a valid YouTube URL');
       return;
@@ -63,11 +66,30 @@ export class HelloWorldModel extends Observable {
     this.isProcessing = true;
     this.processingMessage = 'Analyzing video content...';
 
-    // Simulate processing - in real app, this would be an API call
-    setTimeout(() => {
+    try {
+      // For demo purposes, assume 10 minutes of video processing
+      const videoLength = 10;
+      const usage = await this.usageTracker.trackUsage(videoLength);
+      
+      if (usage.remainingHours <= 0) {
+        alert('You have reached your free plan limit. Please upgrade to continue.');
+        return;
+      }
+
+      this.freeHoursRemaining = `${usage.remainingHours.toFixed(1)} hours remaining in free plan`;
+      
+      // Simulate processing - in real app, this would be an API call
+      setTimeout(() => {
+        this.isProcessing = false;
+        this.processingMessage = '';
+        alert('This is a demo version. API integration coming soon!');
+      }, 2000);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while processing the video');
+    } finally {
       this.isProcessing = false;
       this.processingMessage = '';
-      alert('This is a demo version. API integration coming soon!');
-    }, 2000);
+    }
   }
 }
