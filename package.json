@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@nativescript/core": "~8.8.0"
+    "@nativescript/core": "~8.8.0",
+    "@nativescript/ios": "8.8.0"
   },
   "devDependencies": {
     "@nativescript/preview-cli": "^1.0.14",
@@ -16,6 +17,8 @@
     "typescript": "~5.4.0"
   },
   "scripts": {
-    "start": "ns preview"
+    "start": "ns preview",
+    "ios": "ns run ios",
+    "ios.preview": "ns preview --env.platform=ios"
   }
 }
