@@ -1,0 +1,34 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-shrtr">
+    <ActionBar title="SHRTR" class="bg-shrtr text-shrtr-yellow" flat="true" />
+    
+    <StackLayout class="p-4">
+        <Label text="Create Viral Clips" class="text-3xl text-shrtr-yellow text-center mb-4" />
+        <Label text="Paste your YouTube link below" class="text-lg text-white text-center" />
+        
+        <TextField 
+            hint="YouTube URL" 
+            text="{{ youtubeUrl }}" 
+            class="input-shrtr" 
+            returnKeyType="done" />
+        
+        <Button 
+            text="Generate Clips" 
+            tap="{{ onGenerateClips }}" 
+            class="btn-shrtr mt-4" 
+            isEnabled="{{ !isProcessing }}" />
+            
+        <ActivityIndicator 
+            busy="{{ isProcessing }}" 
+            visibility="{{ isProcessing ? 'visible' : 'collapsed' }}" 
+            class="mt-4" />
+            
+        <Label 
+            text="{{ processingMessage }}" 
+            class="text-white text-center mt-2" 
+            visibility="{{ isProcessing ? 'visible' : 'collapsed' }}" />
+            
+        <Label 
+            text="{{ freeHoursRemaining }}" 
+            class="text-shrtr-yellow text-center mt-4" />
+    </StackLayout>
+</Page>

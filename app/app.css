@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom theme colors */
+.bg-shrtr {
+  background-color: #000000;
+}
+
+.text-shrtr-yellow {
+  color: #FFD700;
+}
+
+.btn-shrtr {
+  background-color: #FFD700;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 8;
+  padding: 12;
+}
+
+.input-shrtr {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 8;
+  padding: 12;
+  margin: 8 0;
+}
