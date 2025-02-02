@@ -10,6 +10,7 @@ export class HelloWorldModel extends Observable {
   private _freeHoursRemaining: string = '5 hours remaining in free plan';
   private usageTracker: UsageTracker;
   private youtubeService: YouTubeService;
+  private readonly MAX_VIDEO_LENGTH_MINUTES = 180; // 3 hours
 
   constructor() {
     super();
@@ -87,6 +88,12 @@ export class HelloWorldModel extends Observable {
       const duration = videoDetails.items[0].contentDetails.duration;
       // Convert ISO 8601 duration to minutes
       const videoLength = this.parseIsoDuration(duration);
+
+      // Check if video is longer than 3 hours
+      if (videoLength > this.MAX_VIDEO_LENGTH_MINUTES) {
+        alert('Video is too long. Please choose a video that is 3 hours or shorter.');
+        return;
+      }
 
       const usage = await this.usageTracker.trackUsage(videoLength);
       
